@@ -1,0 +1,1 @@
+<h2>Django-Ecommerce site</h2>
