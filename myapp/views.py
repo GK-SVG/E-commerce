@@ -1,8 +1,9 @@
 from django.shortcuts import render
-
+from .models import *
 # Create your views here.
 def store(request):
-    content={}
+    products=Product.objects.all()
+    content={'products':products}
     return render(request,'myapp/store.html',content)
 
 def cart(request):
