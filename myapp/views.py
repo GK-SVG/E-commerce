@@ -7,11 +7,24 @@ def store(request):
     return render(request,'myapp/store.html',content)
 
 def cart(request):
-    content={}
+    if request.user.is_authenticated:
+        customer=request.user.customer
+        order,created=Order.objects.get_or_create(customer=customer,complete=False)
+        items=order.orderitem_set.all()
+    else:
+        items=[]
+        order={'grand_total':0}
+    content={'items':items,'order':order}
     return render(request,'myapp/cart.html',content)
 
 def checkout(request):
-    content={}
+    if request.user.is_authenticated:
+        customer=request.user.customer
+        order,created=Order.objects.get_or_create(customer=customer,complete=False)
+        items=order.orderitem_set.all()
+    else:
+        items=[]
+        order={'grand_total':0}
+    content={'items':items,'order':order}
     return render(request,'myapp/checkout.html',content)
-
 
