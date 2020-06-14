@@ -10,15 +10,15 @@ def store(request):
 		customer = request.user.customer
 		order, created = Order.objects.get_or_create(customer=customer, complete=False)
 		items = order.orderitem_set.all()
-		cartItems = order.get_cart_items
+		cartItems = order.grand_total
 	else:
 		#Create empty cart for now for non-logged in user
 		items = []
-		order = {'get_cart_total':0, 'get_cart_items':0}
-		cartItems = order['get_cart_items']
+		order = {'get_cart_total':0, 'grand_total':0}
+		cartItems = order['grand_total']
 
 	products = Product.objects.all()
-	context = {'products':products, 'cartItems':cartItems}
+	context = {'products':products, 'cartItems':cartItems,'items':items}
 	return render(request, 'myapp/store.html', context)
 
 def cart(request):
@@ -27,12 +27,12 @@ def cart(request):
 		customer = request.user.customer
 		order, created = Order.objects.get_or_create(customer=customer, complete=False)
 		items = order.orderitem_set.all()
-		cartItems = order.get_cart_items
+		cartItems = order.grand_total
 	else:
 		#Create empty cart for now for non-logged in user
 		items = []
 		order = {'get_cart_total':0, 'get_cart_items':0}
-		cartItems = order['get_cart_items']
+		cartItems = order['grand_total']
 
 	context = {'items':items, 'order':order, 'cartItems':cartItems}
 	return render(request, 'myapp/cart.html', context)
@@ -46,8 +46,8 @@ def checkout(request):
 	else:
 		#Create empty cart for now for non-logged in user
 		items = []
-		order = {'get_cart_total':0, 'get_cart_items':0}
-		cartItems = order['get_cart_items']
+		order = {'get_cart_total':0, 'grand_total':0}
+		cartItems = order['grand_total']
 
 	context = {'items':items, 'order':order, 'cartItems':cartItems}
 	return render(request, 'myapp/checkout.html', context)
