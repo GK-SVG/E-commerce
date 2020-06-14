@@ -1,71 +1,84 @@
 {% extends 'myapp/main.html' %}
 {% block content %}
 {% load static %}
-<div class="row">
-    <div class="col-lg-6">
-        <div class="box-element" id="form-wrapper">
-            <form id="form">
-                <div id="user-info">
-                    <div class="form-field">
-                        <input required class="form-control" type="text" name="name" placeholder="Name..">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="box-element" id="form-wrapper">
+                <form id="form">
+                    {% csrf_token %}
+                    <div id="user-info">
+                        <div class="form-field">
+                            <input required class="form-control" type="text" name="name" placeholder="Name..">
+                        </div>
+                        <div class="form-field">
+                            <input required class="form-control" type="email" name="email" placeholder="Email..">
+                        </div>
                     </div>
-                    <div class="form-field">
-                        <input required class="form-control" type="email" name="email" placeholder="Email..">
-                    </div>
-                </div>
 
-                <div id="shipping-info">
+                    <div id="shipping-info">
+                        <hr>
+                        <p>Shipping Information:</p>
+                        <hr>
+                        <div class="form-field">
+                            <input class="form-control" type="text" name="address" placeholder="Address..">
+                        </div>
+                        <div class="form-field">
+                            <input class="form-control" type="text" name="city" placeholder="City..">
+                        </div>
+                        <div class="form-field">
+                            <input class="form-control" type="text" name="state" placeholder="State..">
+                        </div>
+                        <div class="form-field">
+                            <input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
+                        </div>
+                    </div>
                     <hr>
-                    <p>Shipping Information:</p>
-                    <hr>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="address" placeholder="Address..">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="city" placeholder="City..">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="state" placeholder="State..">
-                    </div>
-                    <div class="form-field">
-                        <input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
-                    </div>
-                </div>
-                <hr>
-                <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
-            </form>
-        </div>
-        <br>
-        <div class="box-element hidden" id="payment-info">
-            <small>Paypal Options</small>
-        </div>
-    </div>
-
-    <div class="col-lg-6">
-
-        <div class="box-element">
-            <a class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
-            <hr>
-            <h3>Order Summary</h3>
-            <hr>
-            {% for item in items %}
-            <div class="cart-row">
-                <div style="flex:2"><img class="row-image" src="{{item.product.ImageURL}}"></div>
-                <div style="flex:2">
-                    <p>{{item.product.name}}</p>
-                </div>
-                <div style="flex:1">
-                    <p>${{item.product.price}}</p>
-                </div>
-                <div style="flex:1">
-                    <p>{{item.quantity}}</p>
-                </div>
+                    <input id="form-button" class="btn btn-secondary btn-block" type="submit" value="Continue">
+                </form>
             </div>
-            {% endfor %}
-            <h5>Items: {{items.count}}</h5>
-            <h5>Total: ${{order.grand_total}}</h5>
+            <br>
+            <div class="box-element hidden" id="payment-info">
+                <small>Paypal Options</small>
+                <button id="make-payment" class="btn-primary">Make Payment</button>
+            </div>
         </div>
 
+        <div class="col-lg-6">
+
+            <div class="box-element">
+                <a class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
+                <hr>
+                <h3>Order Summary</h3>
+                <hr>
+                {% for item in items %}
+                <div class="cart-row">
+                    <div style="flex:2"><img class="row-image" src="{{item.product.ImageURL}}"></div>
+                    <div style="flex:2">
+                        <p>{{item.product.name}}</p>
+                    </div>
+                    <div style="flex:1">
+                        <p>${{item.product.price}}</p>
+                    </div>
+                    <div style="flex:1">
+                        <p>{{item.quantity}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+                <h5>Items: {{order.grand_total}}</h5>
+                <h5>Total: ${{order.get_cart_items|floatformat:2}}</h5>
+            </div>
+
+        </div>
     </div>
 </div>
+<script>
+var form= document.getElementById('form')
+form.addEventListener('submit',function(e){
+    e.preventDefault()
+    console.log('form submited....')
+    document.getElementById('form-button').classList.add('hidden')
+    document.getElementById('payment-info').classList.remove('hidden')
+})
+</script>
 {% endblock content %}
