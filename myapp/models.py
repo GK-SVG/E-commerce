@@ -42,7 +42,7 @@ class Order(models.Model):
     @property
     def grand_total(self):
         orderitems=self.orderitem_set.all()
-        total=sum([item.get_total for item in orderitems])
+        total=sum([item.quantity for item in orderitems])
         return total
 
     @property
