@@ -7,16 +7,13 @@
             <div class="box-element" id="form-wrapper">
                 <form id="form">
                     {% csrf_token %}
-                    <div id="user-info">
+                    <div id="shipping-info">
                         <div class="form-field">
                             <input required class="form-control" type="text" name="name" placeholder="Name..">
                         </div>
                         <div class="form-field">
                             <input required class="form-control" type="email" name="email" placeholder="Email..">
                         </div>
-                    </div>
-
-                    <div id="shipping-info">
                         <hr>
                         <p>Shipping Information:</p>
                         <hr>
@@ -73,36 +70,55 @@
     </div>
 </div>
 <script>
-var form= document.getElementById('form')
-form.addEventListener('submit',function(e){
-    e.preventDefault()
-    console.log('form submited....')
-    document.getElementById('form-button').classList.add('hidden')
-    document.getElementById('payment-info').classList.remove('hidden')
-})
+    var form = document.getElementById('form')
+    form.addEventListener('submit', function (e) {
+        e.preventDefault()
+        console.log('form submited....')
+        document.getElementById('form-button').classList.add('hidden')
+        document.getElementById('payment-info').classList.remove('hidden')
+    })
 
-document.getElementById('make-payment').addEventListener('click',function(e){
-    submitFormdata();
-})
+    document.getElementById('make-payment').addEventListener('click', function (e) {
+        submitFormdata();
+    })
 
-function submitFormdata(){
-    console.log('payment button clicked');
-    var userFormdata={
-        'name':null,
-        'email':null,
-        'total':total
+    function submitFormdata() {
+        console.log('payment button clicked');
+
+
+        var shippingInfo = {
+            'name': null,
+            'email': null,
+            'address': null,
+            'city': null,
+            'state': null,
+            'zipcode': null
+        }
+        shippingInfo.name = form.name.value
+        shippingInfo.email = form.email.value
+        shippingInfo.address = form.address.value
+        shippingInfo.city = form.city.value
+        shippingInfo.state = form.state.value
+        shippingInfo.zipcode = form.zipcode.value
+
+        var url = 'process_order'
+
+		fetch(url, {
+			method:'POST',
+			headers:{
+				'Content-Type':'application/json',
+				'X-CSRFToken':csrftoken,
+			}, 
+			body:JSON.stringify({'shipping':shippingInfo})
+		})
+		.then((response) => {
+		   return response.json();
+		})
+		.then((data) => {
+			console.log('Data:', data)
+            console.log('Transaction completed')
+            window.location.href='/';
+		});
     }
-
-    var shippingInfo={
-        'address':null,
-        'city':null,
-        'state':null,
-        'zipcode':null
-    }
-    shippingInfo.address=form.address.value
-    shippingInfo.city=form.city.value
-    shippingInfo.state=form.state.value
-    shippingInfo.zipcode=form.zipcode.value
-}
 </script>
 {% endblock content %}
