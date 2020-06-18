@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-6">
             <div class="box-element" id="form-wrapper">
-                <form id="form">
+                <form action='processOrder' method='POST'>
                     {% csrf_token %}
                     <div id="shipping-info">
                         <div class="form-field">
@@ -30,15 +30,13 @@
                             <input class="form-control" type="text" name="zipcode" placeholder="Zip code..">
                         </div>
                     </div>
-                    <hr>
-                    <input id="form-button" class="btn btn-secondary btn-block" type="submit" value="Continue">
+                    <div class="box-element " id="payment-info">
+                        <img class="mx-4" src="{% static 'images/paytm.png'%}" style="height:2em; width:5em;">
+                        <button class="btn-primary rounded">Make Payment</button>
+                    </div>
                 </form>
             </div>
-            <br>
-            <div class="box-element hidden" id="payment-info">
-                <small>Paypal Options</small>
-                <button id="make-payment" class="btn-primary">Make Payment</button>
-            </div>
+           
         </div>
 
         <div class="col-lg-6">
@@ -69,56 +67,4 @@
         </div>
     </div>
 </div>
-<script>
-    var form = document.getElementById('form')
-    form.addEventListener('submit', function (e) {
-        e.preventDefault()
-        console.log('form submited....')
-        document.getElementById('form-button').classList.add('hidden')
-        document.getElementById('payment-info').classList.remove('hidden')
-    })
-
-    document.getElementById('make-payment').addEventListener('click', function (e) {
-        submitFormdata();
-    })
-
-    function submitFormdata() {
-        console.log('payment button clicked');
-
-
-        var shippingInfo = {
-            'name': null,
-            'email': null,
-            'address': null,
-            'city': null,
-            'state': null,
-            'zipcode': null
-        }
-        shippingInfo.name = form.name.value
-        shippingInfo.email = form.email.value
-        shippingInfo.address = form.address.value
-        shippingInfo.city = form.city.value
-        shippingInfo.state = form.state.value
-        shippingInfo.zipcode = form.zipcode.value
-
-        var url = 'process_order'
-
-		fetch(url, {
-			method:'POST',
-			headers:{
-				'Content-Type':'application/json',
-				'X-CSRFToken':csrftoken,
-			}, 
-			body:JSON.stringify({'shipping':shippingInfo})
-		})
-		.then((response) => {
-		   return response.json();
-		})
-		.then((data) => {
-			console.log('Data:', data)
-            console.log('Transaction completed')
-            window.location.href='/';
-		});
-    }
-</script>
 {% endblock content %}
