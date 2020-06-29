@@ -1,13 +1,53 @@
 {% extends 'myapp/main.html' %}
 {% load static %}
+{% block css %}
+
+.box-element{
+	box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+	background-color: #fff;
+	border-radius: 4px;
+	padding: 10px;
+}
+.btn{
+	border-radius: 0;
+}
+.cart-row{
+	display: flex;
+    align-items: flex-stretch;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ececec;
+
+}
+.row-image{
+	width: 100px;
+}
+.quantity{
+	display: inline-block;
+	font-weight: 700;
+	padding-right:10px;
+	
+
+}
+
+.chg-quantity{
+	width: 12px;
+	cursor: pointer;
+	display: block;
+	margin-top: 5px;
+	transition:.1s;
+}
+
+.chg-quantity:hover{
+	opacity: .6;
+}
+{% endblock css %}
 {% block content %}
 <div class="container">
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="box-element">
-
 				<a  class="btn btn-outline-dark" href="{% url 'store' %}">&#x2190; Continue Shopping</a>
-
 				<br>
 				<br>
 				<table class="table">
