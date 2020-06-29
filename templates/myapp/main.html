@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-{% load static %}
 <html>
 
 <head>
+  {% load static %}
   <title>Ecom</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
   <script>
     var user = '{{request.user}}'
 
@@ -29,26 +28,6 @@
     const csrftoken = getToken('csrftoken');
   </script>
   <style>
-    body {
-      background-color: hsl(0, 0%, 98%);
-    }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      color: hsl(0, 0%, 30%);
-    }
-
-    .box-element {
-      box-shadow: hsl(0, 0%, 80%) 0 0 16px;
-      background-color: #fff;
-      border-radius: 4px;
-      padding: 10px;
-    }
-
     .thumbnail {
       width: 100%;
       height: 200px;
@@ -89,99 +68,50 @@
     .col-lg-12 {
       margin-top: 10px;
     }
-
-    .btn {
-      border-radius: 0;
-    }
-
-    .row-image {
-      width: 100px;
-    }
-
-    .form-field {
-      width: 250px;
-      display: inline-block;
-      padding: 5px;
-    }
-
-    .cart-row {
-      display: flex;
-      align-items: flex-stretch;
-      padding-bottom: 10px;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #ececec;
-
-    }
-
-    .quantity {
-      display: inline-block;
-      font-weight: 700;
-      padding-right: 10px;
-
-
-    }
-
-    .chg-quantity {
-      width: 12px;
-      cursor: pointer;
-      display: block;
-      margin-top: 5px;
-      transition: .1s;
-    }
-
-    .chg-quantity:hover {
-      opacity: .6;
-    }
-
-
-    .hidden {
-      display: none !important;
-    }
+    {% block css %}
+{% endblock css %}
   </style>
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="{% url 'store' %}">Ecom</a>
+    <a class="navbar-brand" href="/">Ecom</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="{% url 'store' %}">Store <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/">STORE<span class="sr-only">(current)</span></a>
         </li>
-
       </ul>
-      <div class="form-inline my-2 my-lg-0">
-        {% if user.is_authenticated  %}
-        <li class="nav-item dropdown" style="list-style:none;">
-          <a class="btn btn-warning dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Hello {{request.user}}
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0 mr-2" type="submit"
+          style="background-color:rgb(255, 188, 4);">Search</button>
+      </form>
+      {% if user.is_authenticated %}
+      <ul class="navbar-nav ml-2">
+        <li class="nav-item dropdown">
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            style="background-color:rgb(255, 188, 4);">
+            Welcome {{request.user}}
           </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="btn btn-warning mx-3" href="/logout/" role="button" aria-haspopup="true"
-              aria-expanded="false">Logout<svg class="bi bi-arrow-bar-right" width="1em" height="1em"
-                viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M10.146 4.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L12.793 8l-2.647-2.646a.5.5 0 0 1 0-.708z" />
-                <path fill-rule="evenodd"
-                  d="M6 8a.5.5 0 0 1 .5-.5H13a.5.5 0 0 1 0 1H6.5A.5.5 0 0 1 6 8zm-2.5 6a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 1 0v11a.5.5 0 0 1-.5.5z" />
-              </svg></a>
-          </div>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="background-color:rgb(255, 188, 4);">
+            <a class="dropdown-item" href="/logout/" style="background-color:rgb(255, 188, 4);">Logout</a></div>
         </li>
-        {% else %}
-        <a href="{% url 'login' %}" class="btn btn-warning">Login</a>
-        <a href="{% url 'register' %}" class="btn btn-warning ml-2">SignUp</a>
-        {% endif %}
-        <a href="{% url 'cart' %}">
-          <img id="cart-icon" src="{% static 'images/cart.webp' %}">
-        </a>
-        <p id="cart-total">{{cartItems}}</p>
-
-      </div>
+      </ul>
+      {% else %}
+      <a href="{% url 'login' %}" class="btn btn-warning">Login</a>
+      <a href="{% url 'register' %}" class="btn btn-warning ml-2">SignUp</a>
+      {% endif %}
+      <a href="{% url 'cart' %}">
+        <img id="cart-icon" src="{% static 'images/cart.webp' %}">
+      </a>
+      <p id="cart-total">{{cartItems}}</p>
     </div>
   </nav>
   {% block content %}
