@@ -53,8 +53,8 @@ def updateItem(request):
 	data = json.loads(request.body)
 	productId = data['productId']
 	action = data['action']
-	print('Action:', action)
-	print('Product:', productId)
+	# print('Action:', action)
+	# print('Product:', productId)
 
 	customer = request.user
 	product = Product.objects.get(id=productId)
@@ -183,3 +183,7 @@ def loginPage(request):
 def logoutUser(request):
     logout(request)
     return redirect('/')
+
+def orders(request):
+	orders=Order.objects.filter(customer=request.user)
+	return render(request,'myapp/orders.html',{'orders':orders})

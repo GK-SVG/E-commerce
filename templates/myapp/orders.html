@@ -1,0 +1,59 @@
+{% extends 'myapp/main.html' %}
+{% block css %}
+.box-element{
+	box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+	background-color: #fff;
+	border-radius: 4px;
+	padding: 10px;
+}
+.btn{
+	border-radius: 0;
+}
+.cart-row{
+	display: flex;
+    align-items: flex-stretch;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ececec;
+
+}
+.row-image{
+	width: 100px;
+}
+.quantity{
+	display: inline-block;
+	font-weight: 700;
+	padding-right:10px;
+	
+
+}
+{% endblock css %}
+{% block content %}
+<div class="container">
+    <div class="box-element">
+        <div class="cart-row">
+            
+            <div style="flex:1"><strong>Order-ID</strong></div>
+            <div style="flex:1.3"><strong>Tranjaction-ID</strong></div>
+            <div style="flex:1.3"><strong>OrderDate</strong></div>
+            <div style="flex:1"><strong>Ammount</strong></div>
+            <div style="flex:.7"><strong>Items</strong></div>
+            <div style="flex:.7"><strong>Completed</strong></div>
+        </div>
+        {% for order in orders %}
+        <div class="cart-row">
+            <div style="flex:1">{{order.id}}</div>
+            <div style="flex:1.3"><p>{{order.transaction_id}}</p></div>
+            <div style="flex:1.3"><p>{{order.date_ordered}}</p></div>
+            <div style="flex:1">
+                <p class="quantity">{{order.get_cart_items}}rs</p>
+            </div>
+            <div style="flex:.7"><p>{{order.grand_total}}</p></div>
+            <div style="flex:.7">
+                <p class="quantity">{{order.complete}}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
