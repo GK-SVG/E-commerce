@@ -68,8 +68,9 @@
     .col-lg-12 {
       margin-top: 10px;
     }
-    {% block css %}
-{% endblock css %}
+
+      {% block css %}
+      {% endblock css %}
   </style>
 </head>
 
@@ -86,6 +87,21 @@
         <li class="nav-item active">
           <a class="nav-link" href="/">STORE<span class="sr-only">(current)</span></a>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Products
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color:rgb(255, 188, 4);">
+            <a class="dropdown-item" href="#">Mobiles</a>
+            <a class="dropdown-item" href="#">Fashion</a>
+            <a class="dropdown-item" href="#">Electronic</a>
+            <a class="dropdown-item" href="#">Kids</a>
+            <a class="dropdown-item" href="#">Grocery</a>
+            <a class="dropdown-item" href="#">Sports</a>
+            <a class="dropdown-item" href="#">Study</a>
+          </div>
+        </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -101,9 +117,9 @@
             Welcome {{request.user}}
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="background-color:rgb(255, 188, 4);">
-            <a class="dropdown-item" href="/logout/" >Logout</a>
-            <a class="dropdown-item" href="/orders/" >Tranjactions</a>
-            </div>
+            <a class="dropdown-item" href="/logout/">Logout</a>
+            <a class="dropdown-item" href="/orders/">Tranjactions</a>
+          </div>
         </li>
       </ul>
       {% else %}
