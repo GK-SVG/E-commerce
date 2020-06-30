@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <script>
     var user = '{{request.user}}'
 
@@ -85,21 +86,16 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="/">STORE<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/" style="color: black;">STORE<span class="sr-only">(current)</span></a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Products
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color:rgb(255, 188, 4);">
-            <a class="dropdown-item" href="#">Mobiles</a>
-            <a class="dropdown-item" href="#">Fashion</a>
-            <a class="dropdown-item" href="#">Electronic</a>
-            <a class="dropdown-item" href="#">Kids</a>
-            <a class="dropdown-item" href="#">Grocery</a>
-            <a class="dropdown-item" href="#">Sports</a>
-            <a class="dropdown-item" href="#">Study</a>
+        <li>
+          <div class="w3-dropdown-hover" style="background-color: #4f868c;">
+            <button class="w3-button">PRODUCTS</button>
+            <div class="w3-dropdown-content w3-bar-block w3-card-4" style="background-color:rgb(255, 188, 4);">
+              <a href="#" class="w3-bar-item w3-button" style="text-decoration: none;">Mobiles</a>
+              <a href="#" class="w3-bar-item w3-button"style="text-decoration: none;">Fashion</a>
+              <a href="#" class="w3-bar-item w3-button"style="text-decoration: none;">Gadgets</a>
+            </div>
           </div>
         </li>
       </ul>
