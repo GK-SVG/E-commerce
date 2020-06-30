@@ -187,3 +187,8 @@ def logoutUser(request):
 def orders(request):
 	orders=Order.objects.filter(customer=request.user)
 	return render(request,'myapp/orders.html',{'orders':orders})
+
+def orderitems(request,id):
+	order=Order.objects.get(id=id)
+	items=OrderItem.objects.filter(order=order)
+	return render(request,'myapp/orderitems.html',{'items':items})

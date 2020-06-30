@@ -1,0 +1,65 @@
+{% extends 'myapp/main.html' %}
+{% block css %}
+.box-element{
+box-shadow:hsl(0, 0%, 80%) 0 0 16px;
+background-color: #fff;
+border-radius: 4px;
+padding: 10px;
+}
+.btn{
+border-radius: 0;
+}
+.cart-row{
+display: flex;
+align-items: flex-stretch;
+padding-bottom: 10px;
+margin-bottom: 10px;
+border-bottom: 1px solid #ececec;
+}
+.row-image{
+width: 100px;
+}
+.quantity{
+display: inline-block;
+font-weight: 700;
+padding-right:10px;
+
+
+}
+{% endblock css %}
+{% block content %}
+<div class="container">
+    <a class="btn btn-outline-dark my-3" href="{% url 'order' %}" style="background-color:rgb(255, 188, 4);"><svg
+        width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle-fill" fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd"
+            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.646 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L6.207 7.5H11a.5.5 0 0 1 0 1H6.207l2.147 2.146z" />
+    </svg>BACK</a>
+    <div class="box-element">
+        <div class="cart-row">
+            <div style="flex:2"></div>
+            <div style="flex:2"><strong>Item</strong></div>
+            <div style="flex:1"><strong>Price</strong></div>
+            <div style="flex:1"><strong>Quantity</strong></div>
+            <div style="flex:1"><strong>Total</strong></div>
+        </div>
+        {% for item in items %}
+        <div class="cart-row">
+            <div style="flex:2"><img class="row-image" src="{{item.product.ImageURL}}"></div>
+            <div style="flex:2">
+                <p>{{item.product.name}}</p>
+            </div>
+            <div style="flex:1">
+                <p>${{item.product.price|floatformat:2}}</p>
+            </div>
+            <div style="flex:1">
+                <p class="quantity">{{item.quantity}}</p>
+            </div>
+            <div style="flex:1">
+                <p>${{item.get_total|floatformat:2}}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
