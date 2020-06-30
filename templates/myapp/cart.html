@@ -78,7 +78,7 @@ opacity: .6;
 					<div style="flex:1"><strong>Item</strong></div>
 					<div style="flex:1"><strong>Price</strong></div>
 					<div style="flex:1"><strong>Quantity</strong></div>
-					<!-- <div style="flex:1"><strong>Total</strong></div> -->
+					<div style="flex:1"><strong>Total</strong></div>
 				</div>
 				{% for item in items %}
 				<div class="cart-row">
@@ -99,9 +99,9 @@ opacity: .6;
 								class="chg-quantity update-cart" src="{% static  'images/arrow-down.png' %}">
 						</div>
 					</div>
-					<!-- <div style="flex:1">
+					<div style="flex:1">
 						<p>${{item.get_total|floatformat:2}}</p>
-					</div> -->
+					</div>
 				</div>
 				{% endfor %}
 			</div>
