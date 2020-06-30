@@ -69,7 +69,21 @@
     .col-lg-12 {
       margin-top: 10px;
     }
-
+    footer {
+      padding: 4rem 0;
+      font-family: 'Philosopher', sans-serif;
+      font-size: 1.25rem;
+      color: #999999;
+      text-align: center;
+      background:rgb(31, 30, 30);
+      color:white;
+    }
+    a:hover 
+{
+     color:white; 
+     text-decoration:none; 
+     cursor:pointer;  
+}
       {% block css %}
       {% endblock css %}
   </style>
@@ -144,6 +158,19 @@
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
   </script>
   <script src="{% static 'js/cart.js'%}"></script>
+  <footer class="mt-5">
+    <a href="https://www.facebook.com/profile.php?id=100050134031510" style="text-decoration: none;" target="_blank">
+      <img src="https://gk-engineer.herokuapp.com/static/images/fb.png"
+        style="width:2em;height:2em;">
+      <h2>Facebook</h2>
+    </a>
+    <a href="https://www.gmail.com" style="text-decoration: none;" target="_blank">
+      <img src="https://pngimage.net/wp-content/uploads/2018/05/email-png-preto-5.png" style="width:2em;height:2em;">
+      <h2>Gmail</h2>
+    </a>
+    <p>gk32239@gmail.com</p>
+    <h3>&copy;GautamKumar</h3>
+  </footer>
 </body>
 
 </html>
